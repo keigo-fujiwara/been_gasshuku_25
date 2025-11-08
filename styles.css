@@ -83,6 +83,9 @@ a {
 .sidebar-logo {
   text-align: center;
   margin-bottom: 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .sidebar-logo h1 {
@@ -95,6 +98,39 @@ a {
   font-size: 0.75rem;
   opacity: 0.9;
   margin-top: 0.5rem;
+}
+
+.logo-text {
+  font-size: 1.5rem;
+  font-weight: bold;
+  letter-spacing: 0.05em;
+  line-height: 1.2;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.logo-icon {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+
+.logo-image {
+  width: 200px;
+  height: auto;
+  object-fit: contain;
+}
+
+.logo-been {
+  width: 160px;
+}
+
+.logo-separator {
+  font-size: 1.8rem;
+  margin: 0;
+  opacity: 0.8;
+  font-weight: bold;
 }
 
 .sidebar-nav {
@@ -1662,6 +1698,166 @@ input:focus {
   
   .pc-br {
     display: none;
+  }
+}
+
+/* ============================================
+   フロアマップセクション
+   ============================================ */
+
+.floormap-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.floormap-item {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: var(--shadow-soft);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.floormap-item:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-hover);
+}
+
+.floormap-header {
+  background: linear-gradient(135deg, var(--color-primary) 0%, #0a6d4d 100%);
+  padding: 1rem;
+  text-align: center;
+  position: relative;
+}
+
+.floormap-title {
+  color: white;
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+.floormap-toggle-icon {
+  display: none;
+}
+
+.floormap-content {
+  display: block;
+}
+
+.floormap-image {
+  padding: 1.5rem;
+  background: #f9f9f9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.floormap-image img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.floormap-legend {
+  padding: 1.5rem;
+}
+
+.floormap-legend ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.floormap-legend li {
+  padding: 0.5rem 0;
+  color: var(--color-text);
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+}
+
+.legend-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  background: linear-gradient(135deg, var(--color-primary) 0%, #0a6d4d 100%);
+  color: white;
+  border-radius: 50%;
+  font-size: 0.8rem;
+  font-weight: bold;
+  margin-right: 0.75rem;
+  flex-shrink: 0;
+  line-height: 24px;
+  text-align: center;
+  padding-bottom: 1px;
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 1024px) {
+  .floormap-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .floormap-grid {
+    gap: 1.5rem;
+  }
+  
+  .floormap-item {
+    transform: none !important;
+  }
+  
+  .floormap-item:hover {
+    transform: none !important;
+  }
+  
+  .floormap-header {
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .floormap-toggle-icon {
+    display: inline-block;
+    color: white;
+    font-size: 1.2rem;
+    transition: transform 0.3s ease;
+  }
+  
+  .floormap-item.active .floormap-toggle-icon {
+    transform: rotate(180deg);
+  }
+  
+  .floormap-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease;
+  }
+  
+  .floormap-item.active .floormap-content {
+    max-height: 2000px;
+  }
+  
+  .floormap-image {
+    padding: 1rem;
+  }
+  
+  .floormap-legend {
+    padding: 1rem;
+  }
+  
+  .floormap-legend li {
+    font-size: 0.9rem;
+    padding: 0.4rem 0;
   }
 }
 

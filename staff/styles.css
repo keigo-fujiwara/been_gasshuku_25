@@ -362,6 +362,7 @@
 
 .info-box-list {
     line-height: 1.8;
+    list-style: none;
 }
 
 .info-box-list.no-margin-bottom {
@@ -438,6 +439,7 @@
 .info-box-list .nested-list {
     margin-top: 0.5rem;
     padding-left: 1.5rem;
+    list-style: none;
 }
 
 /* ============================================

@@ -32,6 +32,9 @@ document.addEventListener('DOMContentLoaded', function() {
   // ブログメニューのサブメニュートグル機能を初期化（SP版のみ）
   initBlogSubmenuToggle();
   
+  // フロアマップのトグル機能を初期化（SP版のみ）
+  initFloormapToggle();
+  
 });
 
 /**
@@ -409,6 +412,41 @@ function initBlogSubmenuToggle() {
   window.addEventListener('resize', function() {
     if (window.innerWidth > 768) {
       blogMenuItem.classList.remove('active');
+    }
+  });
+}
+
+/**
+ * フロアマップのトグル機能
+ * SP版でフロアマップをアコーディオン形式で開閉
+ */
+function initFloormapToggle() {
+  const floormapItems = document.querySelectorAll('[data-floormap-item]');
+  
+  if (floormapItems.length === 0) {
+    return;
+  }
+  
+  floormapItems.forEach(item => {
+    const header = item.querySelector('[data-floormap-header]');
+    
+    if (!header) return;
+    
+    header.addEventListener('click', function() {
+      // SP版でのみ動作（768px以下）
+      if (window.innerWidth <= 768) {
+        // クリックされたアイテムの開閉を切り替え
+        item.classList.toggle('active');
+      }
+    });
+  });
+  
+  // ウィンドウリサイズ時にPC版に戻った場合は、全て開く
+  window.addEventListener('resize', function() {
+    if (window.innerWidth > 768) {
+      floormapItems.forEach(item => {
+        item.classList.remove('active');
+      });
     }
   });
 }
