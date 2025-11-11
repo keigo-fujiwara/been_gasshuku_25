@@ -2461,21 +2461,29 @@ a {
     min-width: 120px;
   }
   
-  /* 各カラムの最小幅を設定 */
+  /* 各カラムの幅を固定 */
   .schedule-row td:nth-child(1) {
+    width: 110px;
     min-width: 110px;
+    max-width: 110px;
   }
   
   .schedule-row td:nth-child(2) {
+    width: 120px;
     min-width: 120px;
+    max-width: 120px;
   }
   
   .schedule-row td:nth-child(3) {
+    width: 150px;
     min-width: 150px;
+    max-width: 150px;
   }
   
   .schedule-row td:nth-child(4) {
+    width: 200px;
     min-width: 200px;
+    max-width: 200px;
   }
   
   /* PC版のスタイルを維持 */
@@ -2826,21 +2834,29 @@ a {
     padding: 0;
   }
   
-  /* 各カラムの最小幅を少し小さく */
+  /* 各カラムの幅を固定 */
   .schedule-row td:nth-child(1) {
+    width: 90px;
     min-width: 90px;
+    max-width: 90px;
   }
   
   .schedule-row td:nth-child(2) {
+    width: 100px;
     min-width: 100px;
+    max-width: 100px;
   }
   
   .schedule-row td:nth-child(3) {
+    width: 120px;
     min-width: 120px;
+    max-width: 120px;
   }
   
   .schedule-row td:nth-child(4) {
+    width: 180px;
     min-width: 180px;
+    max-width: 180px;
   }
   
   /* スマホ版のスケジュール要素のフォントサイズ調整 */
@@ -3194,14 +3210,19 @@ input:focus {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 1rem;
+    gap: 0.8rem;
     pointer-events: auto;
+    padding: 0.8rem;
+  }
+  
+  .floormap-title {
+    font-size: 1.2rem;
   }
   
   .floormap-toggle-icon {
     display: inline-block;
     color: white;
-    font-size: 1.2rem;
+    font-size: 1rem;
     transition: transform 0.3s ease;
   }
   
@@ -3216,20 +3237,25 @@ input:focus {
   }
   
   .floormap-item.active .floormap-content {
-    max-height: 2000px;
+    max-height: 1200px;
   }
   
   .floormap-image {
-    padding: 1rem;
+    padding: 0.8rem;
+  }
+  
+  .floormap-image img {
+    max-width: 100%;
+    width: 100%;
   }
   
   .floormap-legend {
-    padding: 1rem;
+    padding: 0.8rem 1rem;
   }
   
   .floormap-legend li {
-    font-size: 0.9rem;
-    padding: 0.4rem 0;
+    font-size: 0.85rem;
+    padding: 0.3rem 0;
   }
 }
 
