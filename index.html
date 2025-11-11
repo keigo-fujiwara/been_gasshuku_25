@@ -26,6 +26,14 @@
         <nav class="sidebar-nav">
             <ul>
                 <li><a href="#hero">🏠 トップ</a></li>
+                <!-- <li class="has-submenu">
+                    <a href="#blog">📝 ブログ</a>
+                    <ul class="submenu">
+                        <li><a href="blog/day1.html">1日目</a></li>
+                        <li><a href="blog/day2.html">2日目</a></li>
+                        <li><a href="blog/day3.html">3日目</a></li>
+                    </ul>
+                </li> -->
                 <li><a href="#guide">📢 ご案内</a></li>
                 <li><a href="#overview">📅 日程・会場</a></li>
                 <li><a href="#program">💻 学習内容</a></li>
@@ -35,22 +43,16 @@
                 <li><a href="#access">🚗 アクセス</a></li>
                 <li><a href="#health">🏥 健康管理</a></li>
                 <li><a href="#contact">📧 お問い合わせ</a></li>
-                <!-- ブログメニュー（後で使用するため一時的にコメントアウト） -->
-                <!-- <li class="has-submenu">
-                    <a href="#blog">📝 ブログ</a>
-                    <ul class="submenu">
-                        <li><a href="blog/day1.html">1日目</a></li>
-                        <li><a href="blog/day2.html">2日目</a></li>
-                        <li><a href="blog/day3.html">3日目</a></li>
-                    </ul>
-                </li>
-                -->
             </ul>
         </nav>
         
         <div class="sidebar-footer">
-            © 2025 BeEngineer<br>
-            All Rights Reserved
+            <img src="assets/fav/dot_girl.svg" alt="" class="sidebar-footer-char sidebar-footer-char-left">
+            <div class="sidebar-footer-text">
+                © 2025 BeEngineer<br>
+                All Rights Reserved
+            </div>
+            <img src="assets/fav/dot_boy.svg" alt="" class="sidebar-footer-char sidebar-footer-char-right">
         </div>
     </aside>
 
@@ -77,7 +79,12 @@
         <section id="guide" class="section">
             <div class="container">
                 <h2 class="section-title">ご案内</h2>
-                <div class="guide-content">
+                <div class="guide-toggle-wrapper" data-guide-toggle>
+                    <div class="guide-toggle-header">
+                        <span class="guide-toggle-title">📍 集合場所・注意事項を確認</span>
+                        <span class="guide-toggle-icon">▼</span>
+                    </div>
+                    <div class="guide-content">
                     <div class="guide-text">
                         <p class="guide-main">初日13:00ごろから</p>
                         <p class="guide-detail">
@@ -108,10 +115,15 @@
                     <div class="guide-image">
                         <img src="assets/guide/station.jpeg" alt="城陽駅 改札前の待ち合わせ場所" loading="lazy">
                     </div>
+                    </div>
                 </div>
                 
-                <div class="line-info-box">
-                    <h3 class="line-info-title">📱 合宿連絡用のLINEアカウント</h3>
+                <div class="line-info-box" data-line-toggle>
+                    <div class="line-toggle-header">
+                        <span class="line-toggle-title">📱 合宿連絡用のLINEアカウント</span>
+                        <span class="line-toggle-icon">▼</span>
+                    </div>
+                    <div class="line-info-content-wrapper">
                     <div class="line-info-content">
                         <div class="line-character line-character-left">
                             <img src="assets/fav/dot_boy.svg" alt="キャラクター" class="line-character-img">
@@ -130,6 +142,7 @@
                         <div class="line-character line-character-right">
                             <img src="assets/fav/dot_girl.svg" alt="キャラクター" class="line-character-img">
                         </div>
+                    </div>
                     </div>
                 </div>
             </div>
@@ -170,40 +183,63 @@
                 皆段々かな独自を検全なし画像処理の分野に、しっかりと時間をかけて挑戦できます。
                 </p>
                 
+                <!-- タブボタン（SP版のみ表示） -->
+                <div class="program-tabs">
+                    <button class="program-tab-btn" data-tab="1">
+                        <span class="tab-icon">📝</span>
+                        <span class="tab-text">CHAPTER 1</span>
+                    </button>
+                    <button class="program-tab-btn" data-tab="2">
+                        <span class="tab-icon">🎨</span>
+                        <span class="tab-text">CHAPTER 2</span>
+                    </button>
+                    <button class="program-tab-btn" data-tab="3">
+                        <span class="tab-icon">🏆</span>
+                        <span class="tab-text">CHAPTER 3</span>
+                    </button>
+                </div>
+                
+                <!-- コンテンツエリア -->
                 <div class="card-grid">
-                <div class="card card-orange program-card" data-program-card>
+                <div class="card card-orange program-card" data-program-card data-tab-content="1">
                     <div class="card-header">
                         <div class="card-icon">📝</div>
-                        <div class="chapter-number">CHAPTER 1</div>
-                        <h3 class="card-title">手書き文字認識って<br class="sp-br">どんなもの？<br class="pc-br">機械学習を学ぶ！</h3>
+                        <div class="card-header-text">
+                            <div class="chapter-number">CHAPTER 1</div>
+                            <h3 class="card-title">手書き文字認識ってどんなもの？機械学習を学ぶ！</h3>
+                        </div>
                         <span class="toggle-icon">▼</span>
                     </div>
                     <div class="card-content">
-                    <p>手書きの文字を<br class="sp-br">デジタルデータとして<br class="sp-br">文字認識してみよう。<br class="sp-br">手書き文字認識を試しながら、<br class="sp-br">機械で学習によく使われる<br class="sp-br">畳み込みニューラルネットワーク<br class="sp-br">というスキルに取り組みます。<br class="sp-br">対象の分類や認識、<br class="sp-br">構築の輸出など<br class="sp-br">社会で広く使われている<br class="sp-br">技術の一端を学びます。</p>
+                    <p>手書きの文字をデジタルデータとして文字認識してみよう。手書き文字認識を試しながら、機械で学習によく使われる畳み込みニューラルネットワークというスキルに取り組みます。対象の分類や認識、構築の輸出など社会で広く使われている技術の一端を学びます。</p>
                     </div>
                 </div>
                 
-                <div class="card card-green program-card" data-program-card>
+                <div class="card card-green program-card" data-program-card data-tab-content="2">
                     <div class="card-header">
                         <div class="card-icon">🎨</div>
-                        <div class="chapter-number">CHAPTER 2</div>
-                        <h3 class="card-title">白黒画像を<br class="sp-br">自動でカラー化！<br class="pc-br">どんなことに役立つの？</h3>
+                        <div class="card-header-text">
+                            <div class="chapter-number">CHAPTER 2</div>
+                            <h3 class="card-title">白黒画像を自動でカラー化！どんなことに役立つの？</h3>
+                        </div>
                         <span class="toggle-icon">▼</span>
                     </div>
                     <div class="card-content">
-                    <p>畳み込みニューラルネットワーク<br class="sp-br">を用いながら、<br class="sp-br">歴史資料などの復元作業で<br class="sp-br">実際に使われている<br class="sp-br">白黒画像のカラー化に<br class="sp-br">挑戦します。<br class="sp-br">深層学習を楽しめる環境で、<br class="sp-br">親技形式でより実践に近い<br class="sp-br">形式のエンジニアリングに<br class="sp-br">チャレンジします。</p>
+                    <p>畳み込みニューラルネットワークを用いながら、歴史資料などの復元作業で実際に使われている白黒画像のカラー化に挑戦します。深層学習を楽しめる環境で、親技形式でより実践に近い形式のエンジニアリングにチャレンジします。</p>
                     </div>
                 </div>
                 
-                <div class="card card-orange program-card" data-program-card>
+                <div class="card card-orange program-card" data-program-card data-tab-content="3">
                     <div class="card-header">
                         <div class="card-icon">🏆</div>
-                        <div class="chapter-number">CHAPTER 3</div>
-                        <h3 class="card-title">カラー化精度向上の<br class="sp-br">コンペティション</h3>
+                        <div class="card-header-text">
+                            <div class="chapter-number">CHAPTER 3</div>
+                            <h3 class="card-title">カラー化精度向上のコンペティション</h3>
+                        </div>
                         <span class="toggle-icon">▼</span>
                     </div>
                     <div class="card-content">
-                    <p>学んだ技術を活かして、<br class="sp-br">カラー化の精度を競う<br class="sp-br">コンペティションに挑戦！<br class="sp-br">チームで協力したり、<br class="sp-br">個人で挑戦したり、<br class="sp-br">自分のペースで楽しめます。<br class="sp-br">最終日に成果発表会を<br class="sp-br">行います。</p>
+                    <p>学んだ技術を活かして、カラー化の精度を競うコンペティションに挑戦！チームで協力したり、個人で挑戦したり、自分のペースで楽しめます。最終日に成果発表会を行います。</p>
                     </div>
                 </div>
                 </div>
@@ -221,7 +257,7 @@
                 <!-- タブメニュー -->
                 <div class="schedule-tabs">
                     <button class="tab-btn active" data-tab="schedule-day1">
-                        <span class="tab-emoji">📅</span> 1日目 - 11/22(土)
+                        <span class="tab-emoji">🍁</span> 1日目 - 11/22(土)
                     </button>
                     <button class="tab-btn" data-tab="schedule-day2">
                         <span class="tab-emoji">📅</span> 2日目 - 11/23(日)
@@ -231,6 +267,7 @@
                     </button>
                 </div>
                 
+                <div class="schedule-table-wrapper">
                 <table class="schedule-table">
                     <thead>
                         <tr>
@@ -354,13 +391,14 @@
                                 <div class="note-item">班ごとに食事</div>
                                 <div class="note-item">荷物を持って研修室へ</div>
                                 <div class="note-item">コンペティションの総仕上げ</div>
-                                <div class="note-item">発表スライドの最終確認</div>
-                                <div class="note-item">発表会・表彰式</div>
+                                <div class="note-item">最後の追い込み！</div>
+                                <div class="note-item">成果の確認！</div>
                                 <div class="note-item">お疲れ様でした！<br>忘れ物に注意してください</div>
                             </td>
                         </tr>
                     </tbody>
                 </table>
+                </div>
                 
                 <p class="section-note">
                 授業はまとめて記載していますが、間に休憩時間を設けています。
@@ -377,17 +415,27 @@
                     ロゴスランドの館内マップです。各階の施設配置をご確認ください。
                 </p>
                 
+                <!-- フロアマップタブ -->
+                <div class="floormap-tabs">
+                    <button class="floormap-tab-btn active" data-floor="floor-1f">
+                        <span class="floor-icon">🏢</span> 1F
+                    </button>
+                    <button class="floormap-tab-btn" data-floor="floor-2f">
+                        <span class="floor-icon">🏢</span> 2F
+                    </button>
+                    <button class="floormap-tab-btn" data-floor="floor-3f">
+                        <span class="floor-icon">🏢</span> 3F
+                    </button>
+                </div>
+                
                 <div class="floormap-grid">
                     <!-- 1F -->
-                    <div class="floormap-item" data-floormap-item>
+                    <div class="floormap-item active" data-floormap-item data-floor-content="floor-1f">
                         <div class="floormap-header" data-floormap-header>
                             <h3 class="floormap-title">1F</h3>
                             <span class="floormap-toggle-icon">▼</span>
                         </div>
                         <div class="floormap-content">
-                        <div class="floormap-image">
-                            <img src="assets/logos/floor-1f.jpg" alt="1階フロアマップ" loading="lazy">
-                        </div>
                         <div class="floormap-legend">
                             <ul>
                                 <li><span class="legend-number">1</span> レストラン</li>
@@ -398,19 +446,19 @@
                                 <li><span class="legend-number">6</span> 野外活動ピロティ</li>
                             </ul>
                         </div>
+                        <div class="floormap-image">
+                            <img src="assets/logos/floor-1f.jpg" alt="1階フロアマップ" loading="lazy">
+                        </div>
                         </div>
                     </div>
                     
                     <!-- 2F -->
-                    <div class="floormap-item" data-floormap-item>
+                    <div class="floormap-item" data-floormap-item data-floor-content="floor-2f">
                         <div class="floormap-header" data-floormap-header>
                             <h3 class="floormap-title">2F</h3>
                             <span class="floormap-toggle-icon">▼</span>
                         </div>
                         <div class="floormap-content">
-                        <div class="floormap-image">
-                            <img src="assets/logos/floor-2f.jpg" alt="2階フロアマップ" loading="lazy">
-                        </div>
                         <div class="floormap-legend">
                             <ul>
                                 <li><span class="legend-number">1</span> 女子浴室・更衣室</li>
@@ -421,19 +469,19 @@
                                 <li><span class="legend-number">6</span> 宿泊室</li>
                             </ul>
                         </div>
+                        <div class="floormap-image">
+                            <img src="assets/logos/floor-2f.jpg" alt="2階フロアマップ" loading="lazy">
+                        </div>
                         </div>
                     </div>
                     
                     <!-- 3F -->
-                    <div class="floormap-item" data-floormap-item>
+                    <div class="floormap-item" data-floormap-item data-floor-content="floor-3f">
                         <div class="floormap-header" data-floormap-header>
                             <h3 class="floormap-title">3F</h3>
                             <span class="floormap-toggle-icon">▼</span>
                         </div>
                         <div class="floormap-content">
-                        <div class="floormap-image">
-                            <img src="assets/logos/floor-3f.jpg" alt="3階フロアマップ" loading="lazy">
-                        </div>
                         <div class="floormap-legend">
                             <ul>
                                 <li><span class="legend-number">1</span> BBQテラス</li>
@@ -442,6 +490,9 @@
                                 <li><span class="legend-number">4</span> ロビー</li>
                                 <li><span class="legend-number">5</span> 宿泊室</li>
                             </ul>
+                        </div>
+                        <div class="floormap-image">
+                            <img src="assets/logos/floor-3f.jpg" alt="3階フロアマップ" loading="lazy">
                         </div>
                         </div>
                     </div>
@@ -890,23 +941,35 @@
         <!-- フッター -->
         <footer class="footer">
             <div class="footer-content">
-                <div class="footer-logo">
-                    <a href="https://logosland.jp/" target="_blank" rel="noopener noreferrer">LOGOS LAND</a><br class="sp-br">
-                    ×<br class="sp-br">
-                    <a href="https://be-engineer.tech/" target="_blank" rel="noopener noreferrer">BeEngineer</a>
+                <div class="footer-character footer-character-left">
+                    <img src="assets/fav/dot_girl.svg" alt="キャラクター" class="footer-character-img">
                 </div>
-                <div class="footer-info">
-                京大ITベンチャー発、実践的なチカラを鍛える<br>
-                中高生対象のプログラミング塾
+                
+                <div class="footer-main">
+                    <div class="footer-logo-wrapper">
+                        <div class="footer-logo">
+                            <a href="https://logosland.jp/" target="_blank" rel="noopener noreferrer">LOGOS LAND</a><br class="sp-br">
+                            ×<br class="sp-br">
+                            <a href="https://be-engineer.tech/" target="_blank" rel="noopener noreferrer">BeEngineer</a>
+                        </div>
+                    </div>
+                    <div class="footer-info">
+                    京大ITベンチャー発、実践的なチカラを鍛える<br>
+                    中高生対象のプログラミング塾
+                    </div>
+                    <div class="footer-links">
+                        <span>京大本校</span>
+                        <span>梅田校</span>
+                        <span>飯田橋校</span>
+                        <span>横浜校</span>
+                    </div>
+                    <div class="footer-copyright">
+                    © 2025 BeEngineer. All Rights Reserved.
+                    </div>
                 </div>
-                <div class="footer-links">
-                    <span>京大本校</span>
-                    <span>梅田校</span>
-                    <span>飯田橋校</span>
-                    <span>横浜校</span>
-                </div>
-                <div class="footer-copyright">
-                © 2025 BeEngineer. All Rights Reserved.
+                
+                <div class="footer-character footer-character-right">
+                    <img src="assets/fav/dot_boy.svg" alt="キャラクター" class="footer-character-img">
                 </div>
             </div>
         </footer>

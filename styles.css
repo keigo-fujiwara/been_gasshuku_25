@@ -73,16 +73,17 @@ a {
   height: 100vh;
   background: linear-gradient(180deg, var(--color-primary) 0%, #0a6d4d 100%);
   color: var(--color-white);
-  padding: 2rem 1.5rem;
+  padding: 1rem 0.8rem;
   display: flex;
   flex-direction: column;
   z-index: 1000;
   box-shadow: 4px 0 20px rgba(0, 0, 0, 0.1);
+  overflow: visible;
 }
 
 .sidebar-logo {
   text-align: center;
-  margin-bottom: 3rem;
+  margin-bottom: 1rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -117,17 +118,17 @@ a {
 }
 
 .logo-image {
-  width: 200px;
+  width: 150px;
   height: auto;
   object-fit: contain;
 }
 
 .logo-been {
-  width: 160px;
+  width: 115px;
 }
 
 .logo-separator {
-  font-size: 1.8rem;
+  font-size: 1.2rem;
   margin: 0;
   opacity: 0.8;
   font-weight: bold;
@@ -135,22 +136,25 @@ a {
 
 .sidebar-nav {
   flex: 1;
+  overflow: visible;
+  max-height: calc(100vh - 200px);
 }
 
 .sidebar-nav ul {
   list-style: none;
+  overflow: visible;
 }
 
 .sidebar-nav li {
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.2rem;
 }
 
 .sidebar-nav a {
   display: block;
-  padding: 0.75rem 1rem;
+  padding: 0.45rem 0.7rem;
   border-radius: 8px;
   transition: all 0.3s ease;
-  font-size: 0.95rem;
+  font-size: 0.82rem;
 }
 
 .sidebar-nav a:hover {
@@ -168,6 +172,7 @@ a {
 /* サブメニュー（ドロップダウン） */
 .sidebar-nav .has-submenu {
   position: relative;
+  overflow: visible;
 }
 
 .sidebar-nav .submenu {
@@ -177,14 +182,16 @@ a {
   position: absolute;
   left: 100%;
   top: 0;
+  margin-left: -1.5rem;
   min-width: 150px;
   background: linear-gradient(135deg, var(--color-secondary) 0%, #ff9a5a 100%);
   border-radius: 8px;
-  box-shadow: var(--shadow-soft);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
   opacity: 0;
   visibility: hidden;
   transform: translateX(-10px);
   transition: all 0.3s ease;
+  z-index: 9999;
 }
 
 .sidebar-nav .has-submenu:hover .submenu {
@@ -198,8 +205,8 @@ a {
 }
 
 .sidebar-nav .submenu a {
-  padding: 0.8rem 1rem;
-  font-size: 0.9rem;
+  padding: 0.5rem 0.7rem;
+  font-size: 0.78rem;
   background-color: transparent;
   border-radius: 0;
 }
@@ -219,9 +226,24 @@ a {
 
 .sidebar-footer {
   text-align: center;
-  font-size: 0.7rem;
+  font-size: 0.6rem;
   opacity: 0.7;
   margin-top: auto;
+  padding-top: 0.3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.sidebar-footer-text {
+  line-height: 1.4;
+}
+
+.sidebar-footer-char {
+  width: 35px;
+  height: auto;
+  opacity: 0.8;
 }
 
 /* ============================================
@@ -443,6 +465,11 @@ a {
    ご案内セクション
    ============================================ */
 
+/* PC版では開閉ヘッダーを非表示 */
+.guide-toggle-header {
+  display: none;
+}
+
 .guide-content {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -543,6 +570,11 @@ a {
   padding: 2rem;
   margin-top: 2rem;
   box-shadow: 0 6px 25px rgba(6, 199, 85, 0.15);
+}
+
+/* PC版では開閉ヘッダーを非表示 */
+.line-toggle-header {
+  display: none;
 }
 
 .line-info-title {
@@ -703,6 +735,11 @@ a {
   margin-bottom: 0.5rem;
 }
 
+/* 学習プログラムのタブ（PC版では非表示） */
+.program-tabs {
+  display: none;
+}
+
 /* プログラムカードのトグル機能（SP用） */
 .card-header {
   position: relative;
@@ -770,6 +807,11 @@ a {
 .schedule-tabs .tab-btn:focus-visible {
   outline: 3px solid var(--color-primary);
   outline-offset: 3px;
+}
+
+/* PC版では横スクロールヒントを非表示 */
+.schedule-table-wrapper::after {
+  display: none;
 }
 
 .schedule-table {
@@ -1404,13 +1446,68 @@ a {
 .footer {
   background: linear-gradient(135deg, var(--color-primary) 0%, #0a6d4d 100%);
   color: var(--color-white);
-  padding: 3rem;
+  padding: 3rem 1rem;
   text-align: center;
+  position: relative;
 }
 
 .footer-content {
   max-width: 1200px;
   margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3rem;
+  position: relative;
+}
+
+.footer-main {
+  flex: 0 1 auto;
+  max-width: 700px;
+}
+
+/* フッターのキャラクター */
+.footer-character {
+  flex-shrink: 0;
+  width: 100px;
+}
+
+/* PC版のみ表示 */
+@media (min-width: 769px) {
+  .footer-character {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+/* SP版でも表示 */
+@media (max-width: 768px) {
+  .footer-character {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+  }
+  
+  .footer-character-img {
+    width: 70px;
+  }
+}
+
+.footer-character-img {
+  width: 90px;
+  height: auto;
+  display: block;
+  animation: bounce 2s ease-in-out infinite;
+}
+
+.footer-character-left .footer-character-img {
+  animation-delay: 0s;
+}
+
+.footer-character-right .footer-character-img {
+  animation-delay: 1s;
 }
 
 .footer-logo {
@@ -1663,7 +1760,7 @@ a {
     transition: max-height 0.3s ease;
     background: linear-gradient(135deg, var(--color-secondary) 0%, #ff9a5a 100%);
     border-radius: 8px;
-    margin-top: 0.5rem;
+    margin-top: 0.2rem;
   }
   
   .sidebar-nav .has-submenu.active .submenu {
@@ -1671,7 +1768,8 @@ a {
   }
   
   .sidebar-nav .submenu a {
-    padding: 0.6rem 1rem 0.6rem 2.5rem;
+    padding: 0.5rem 0.7rem 0.5rem 1.8rem;
+    font-size: 0.78rem;
   }
   
   .sidebar-nav .has-submenu > a {
@@ -1829,34 +1927,76 @@ a {
     width: 280px;
     height: 100vh;
     background: linear-gradient(180deg, var(--color-primary) 0%, #0a6d4d 100%);
-    padding: 2rem 1.5rem;
+    padding: 1rem 0.8rem;
     z-index: 1500;
     transition: left 0.3s ease;
-    overflow-y: auto;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
   }
   
   .sidebar.active {
     left: 0;
   }
   
+  .sidebar-logo {
+    margin-bottom: 0.8rem;
+    flex-shrink: 0;
+  }
+  
+  .logo-image {
+    width: 140px;
+  }
+  
+  .logo-been {
+    width: 105px;
+  }
+  
+  .logo-separator {
+    font-size: 1.1rem;
+  }
+  
+  .sidebar-nav {
+    overflow-y: auto;
+    overflow-x: hidden;
+    flex: 1;
+    max-height: none;
+    min-height: 0;
+  }
+  
   .sidebar-nav ul {
     display: flex;
     flex-direction: column;
     gap: 0;
+    overflow: visible;
   }
   
   .sidebar-nav li {
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.2rem;
   }
   
   .sidebar-nav a {
-    padding: 1rem;
-    font-size: 1rem;
+    padding: 0.65rem 0.7rem;
+    font-size: 0.85rem;
   }
   
   .sidebar-nav a.active {
     background-color: rgba(255, 255, 255, 0.25);
     border: 2px solid var(--color-white);
+  }
+  
+  .sidebar-footer {
+    flex-shrink: 0;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+  }
+  
+  .sidebar-footer-char {
+    width: 30px;
   }
   
   .main-content {
@@ -1899,10 +2039,53 @@ a {
     margin-bottom: 0;
   }
   
-  /* ご案内セクションのSP版スタイル */
+  /* ご案内セクションのSP版スタイル - 開閉式 */
+  .guide-toggle-wrapper {
+    background-color: var(--color-white);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-soft);
+    overflow: hidden;
+  }
+  
+  .guide-toggle-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.2rem;
+    background: linear-gradient(135deg, var(--color-secondary) 0%, #ff9a5a 100%);
+    color: var(--color-white);
+    cursor: pointer;
+    user-select: none;
+  }
+  
+  .guide-toggle-title {
+    font-size: 1.1rem;
+    font-weight: bold;
+  }
+  
+  .guide-toggle-icon {
+    font-size: 1.2rem;
+    transition: transform 0.3s ease;
+  }
+  
+  .guide-toggle-wrapper.active .guide-toggle-icon {
+    transform: rotate(180deg);
+  }
+  
   .guide-content {
     grid-template-columns: 1fr;
     gap: 1.5rem;
+    padding: 0;
+    box-shadow: none;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.4s ease, opacity 0.3s ease, padding 0.3s ease;
+  }
+  
+  .guide-toggle-wrapper.active .guide-content {
+    max-height: 3000px;
+    opacity: 1;
     padding: 1.5rem;
   }
   
@@ -1946,8 +2129,48 @@ a {
   }
   
   .line-info-box {
-    padding: 1.5rem;
+    padding: 0;
     margin-top: 1.5rem;
+    overflow: hidden;
+  }
+  
+  /* LINEボックスの開閉ヘッダー（SP版） */
+  .line-toggle-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.2rem;
+    background: linear-gradient(135deg, #06C755 0%, #05a846 100%);
+    color: var(--color-white);
+    cursor: pointer;
+    user-select: none;
+  }
+  
+  .line-toggle-title {
+    font-size: 1.1rem;
+    font-weight: bold;
+  }
+  
+  .line-toggle-icon {
+    font-size: 1.2rem;
+    transition: transform 0.3s ease;
+  }
+  
+  .line-info-box.active .line-toggle-icon {
+    transform: rotate(180deg);
+  }
+  
+  .line-info-content-wrapper {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.4s ease, opacity 0.3s ease, padding 0.3s ease;
+  }
+  
+  .line-info-box.active .line-info-content-wrapper {
+    max-height: 1500px;
+    opacity: 1;
+    padding: 1.5rem;
   }
   
   .line-info-title {
@@ -2027,6 +2250,111 @@ a {
   
   .card-grid {
     grid-template-columns: 1fr;
+    gap: 1.2rem;
+  }
+  
+  /* 学習プログラムのタブ（SP版） */
+  .program-tabs {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+    overflow-x: auto;
+    padding: 1rem 1.5rem;
+    margin-left: -1rem;
+    margin-right: -1rem;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .program-tabs::before,
+  .program-tabs::after {
+    content: '';
+    flex-shrink: 0;
+    width: 0.5rem;
+  }
+  
+  .program-tab-btn {
+    flex: 1;
+    min-width: 85px;
+    padding: 0.6rem 0.4rem;
+    background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%);
+    border: 2px solid var(--color-border);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+    font-family: inherit;
+    flex-shrink: 0;
+  }
+  
+  .program-tab-btn .tab-icon {
+    font-size: 1.3rem;
+  }
+  
+  .program-tab-btn .tab-text {
+    font-size: 0.7rem;
+    font-weight: bold;
+    color: var(--color-text);
+  }
+  
+  .program-tab-btn.active {
+    background: linear-gradient(135deg, var(--color-primary) 0%, #12a876 100%);
+    border-color: var(--color-primary);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(21, 192, 124, 0.3);
+  }
+  
+  .program-tab-btn.active .tab-text {
+    color: var(--color-white);
+  }
+  
+  /* タブコンテンツをSP版では非表示に（タブで制御） */
+  .program-card[data-tab-content] {
+    display: none;
+  }
+  
+  .program-card[data-tab-content].active {
+    display: block;
+  }
+  
+  /* プログラムカードをコンパクトに */
+  .card {
+    padding: 1rem;
+  }
+  
+  .card-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.8rem;
+    padding-bottom: 0.8rem;
+  }
+  
+  .card-icon {
+    width: 50px;
+    height: 50px;
+    font-size: 1.5rem;
+    margin-bottom: 0;
+    flex-shrink: 0;
+  }
+  
+  .card-header-text {
+    flex: 1;
+    min-width: 0;
+  }
+  
+  .chapter-number {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+    margin-bottom: 0.4rem;
+    display: inline-block;
+  }
+  
+  .card-title {
+    font-size: 1.2rem;
+    margin-bottom: 0;
+    line-height: 1.4;
   }
   
   /* タブメニューのSP版スタイル */
@@ -2052,139 +2380,119 @@ a {
     transform: translateY(0);
   }
   
-  /* プログラムカードのトグル機能をSP版で有効化 */
+  /* プログラムカードのトグル機能をSP版で無効化（タブで制御） */
   .program-card .card-header {
-    cursor: pointer;
-    padding-bottom: 1rem;
+    cursor: default;
+    padding-bottom: 0.8rem;
   }
   
-  .toggle-icon {
-    display: block;
+  .program-card .toggle-icon {
+    display: none;
   }
   
   .program-card .card-content {
-    max-height: 0;
-    overflow: hidden;
-    opacity: 0;
-    transition: max-height 0.4s ease, opacity 0.3s ease, margin-top 0.3s ease;
+    max-height: none;
+    overflow: visible;
+    opacity: 1;
     margin-top: 0;
   }
   
-  .program-card.active .card-content {
-    max-height: 1000px;
-    opacity: 1;
-    margin-top: 1rem;
-  }
-  
-  .program-card.active .toggle-icon {
-    transform: rotate(180deg);
-  }
-  
-  /* スケジュールのトグル機能をSP版で有効化 */
-  .schedule-table thead {
-    display: none;
-  }
-  
-  .schedule-row {
-    display: block;
-    margin-bottom: 1rem;
-    background-color: var(--color-white);
-    border-radius: var(--border-radius);
-    box-shadow: var(--shadow-soft);
-    overflow: hidden;
-  }
-  
-  .schedule-row .day-label {
-    display: block;
-    padding: 1.2rem;
-    cursor: pointer;
-    background: linear-gradient(135deg, var(--color-secondary) 0%, #ff9a5a 100%);
-    color: var(--color-white);
-    font-size: 1.1rem;
+  /* スケジュールのスマホ版スタイル - 横スクロール対応 */
+  .schedule-table-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
     position: relative;
+    margin-bottom: 0.5rem;
   }
   
-  .schedule-toggle-icon {
-    display: inline-block;
-  }
-  
-  .schedule-row .schedule-detail {
+  /* 横スクロールヒント（SP版で表示） */
+  .schedule-table-wrapper::after {
+    content: "← スワイプして全体を表示 →";
     display: block;
-    padding: 0;
-    max-height: 0;
-    overflow: hidden;
-    opacity: 0;
-    transition: max-height 0.4s ease, opacity 0.3s ease, padding 0.3s ease;
-  }
-  
-  .schedule-row.active .schedule-detail {
-    max-height: 2000px;
-    opacity: 1;
-    padding: 1rem;
-  }
-  
-  /* 元の時間と内容セルを非表示 */
-  .schedule-row .schedule-detail > .time-slot,
-  .schedule-row .schedule-detail > .activity {
-    display: none;
-  }
-  
-  .schedule-row .schedule-detail:nth-child(3) {
-    display: none;
-  }
-  
-  /* モバイルコンテナのスタイル */
-  .schedule-mobile-container {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-  
-  .schedule-pair {
-    display: grid;
-    grid-template-columns: 80px 1fr;
-    gap: 0;
-    border-radius: 6px;
-    overflow: hidden;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  }
-  
-  .schedule-pair .time-slot {
-    grid-column: 1;
-    margin-bottom: 0;
-    border-radius: 0;
-    border-right: 2px solid rgba(14, 139, 98, 0.3);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: bold;
-    background-color: rgba(14, 139, 98, 0.1);
-    height: auto;
-    min-height: 3rem;
-    padding: 0.8rem 0.5rem;
-  }
-  
-  .schedule-pair .activity {
-    grid-column: 2;
-    margin-bottom: 0;
-    border-radius: 0;
-    background-color: var(--color-white);
-    height: auto;
-    min-height: 3rem;
-    padding: 0.8rem 1rem;
-  }
-  
-  .schedule-row.active .schedule-toggle-icon {
-    transform: translateY(-50%) rotate(180deg);
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--color-text-light);
+    padding: 0.5rem 0;
+    margin-top: 0.5rem;
   }
   
   .schedule-table {
-    font-size: 0.9rem;
+    display: table;
+    width: max-content;
+    min-width: 100%;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-soft);
+    background-color: var(--color-white);
+    border-collapse: separate;
+    border-spacing: 0;
   }
   
-  .schedule-table th,
-  .schedule-table td {
-    padding: 1rem 0.8rem;
+  /* テーブルヘッダーを表示 */
+  .schedule-table thead {
+    display: table-header-group;
+  }
+  
+  .schedule-table thead th {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    font-size: 0.85rem;
+    padding: 0.8rem 0.5rem;
+    white-space: nowrap;
+  }
+  
+  .schedule-table tbody {
+    display: table-row-group;
+  }
+  
+  .schedule-row {
+    display: none;
+  }
+  
+  .schedule-row.tab-content.active {
+    display: table-row;
+  }
+  
+  .schedule-row td {
+    display: table-cell;
+    vertical-align: top;
+    padding: 0;
+    border: none;
+    min-width: 120px;
+  }
+  
+  /* 各カラムの最小幅を設定 */
+  .schedule-row td:nth-child(1) {
+    min-width: 110px;
+  }
+  
+  .schedule-row td:nth-child(2) {
+    min-width: 120px;
+  }
+  
+  .schedule-row td:nth-child(3) {
+    min-width: 150px;
+  }
+  
+  .schedule-row td:nth-child(4) {
+    min-width: 200px;
+  }
+  
+  /* PC版のスタイルを維持 */
+  .schedule-detail > div {
+    padding: 0.6rem 0.8rem;
+    margin-bottom: 0;
+    line-height: 1.5;
+    font-size: 0.85rem;
+  }
+  
+  /* 偶数・奇数行の縞模様 */
+  .schedule-detail > div:nth-child(odd) {
+    background-color: #ffffff;
+  }
+  
+  .schedule-detail > div:nth-child(even) {
+    background-color: rgba(168, 213, 226, 0.2);
   }
   
   .checklist {
@@ -2234,11 +2542,45 @@ a {
     grid-template-columns: 1fr;
   }
   
+  .footer-content {
+    flex-direction: column;
+    gap: 0;
+    padding: 0 1rem;
+    align-items: center;
+  }
+  
+  .footer-main {
+    max-width: 100%;
+    width: 100%;
+    order: 2;
+  }
+  
+  .footer {
+    padding: 2rem 0.5rem;
+  }
+  
+  .footer-logo-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+    margin-bottom: 1rem;
+  }
+  
+  .footer-logo {
+    margin-bottom: 0;
+  }
+  
+  .footer-info {
+    margin-bottom: 0.8rem;
+  }
+  
   .footer-links {
     display: grid;
     grid-template-columns: repeat(2, auto);
     justify-content: center;
     gap: 1rem 2rem;
+    margin: 1.5rem 0;
   }
   
   .footer-links span {
@@ -2251,6 +2593,18 @@ a {
     max-width: 92%;
     width: 92%;
     padding: 0.5rem;
+  }
+  
+  .footer-character {
+    width: 65px;
+  }
+  
+  .footer-character-img {
+    width: 55px;
+  }
+  
+  .footer-logo-wrapper {
+    gap: 0.6rem;
   }
   
   .hero-panel {
@@ -2285,8 +2639,23 @@ a {
   }
   
   /* ご案内セクションのさらに小さい画面用スタイル */
-  .guide-content {
+  .guide-toggle-header {
+    padding: 1rem;
+  }
+  
+  .guide-toggle-title {
+    font-size: 1rem;
+  }
+  
+  .guide-toggle-icon {
+    font-size: 1.1rem;
+  }
+  
+  .guide-toggle-wrapper.active .guide-content {
     padding: 1.2rem;
+  }
+  
+  .guide-content {
     gap: 1.2rem;
   }
   
@@ -2330,8 +2699,24 @@ a {
   }
   
   .line-info-box {
-    padding: 1.2rem;
+    padding: 0;
     margin-top: 1.2rem;
+  }
+  
+  .line-toggle-header {
+    padding: 1rem;
+  }
+  
+  .line-toggle-title {
+    font-size: 1rem;
+  }
+  
+  .line-toggle-icon {
+    font-size: 1.1rem;
+  }
+  
+  .line-info-box.active .line-info-content-wrapper {
+    padding: 1.2rem;
   }
   
   .line-info-title {
@@ -2397,13 +2782,78 @@ a {
   }
   
   .card {
-    padding: 1.5rem;
+    padding: 0.9rem 0.8rem;
   }
   
-  .schedule-table th,
+  .card-grid {
+    gap: 1rem;
+  }
+  
+  .card-header {
+    gap: 0.7rem;
+    padding-bottom: 0.7rem;
+  }
+  
+  .card-icon {
+    width: 45px;
+    height: 45px;
+    font-size: 1.3rem;
+    margin-bottom: 0;
+  }
+  
+  .toggle-icon {
+    font-size: 1.1rem;
+  }
+  
+  .chapter-number {
+    font-size: 0.7rem;
+    padding: 0.2rem 0.4rem;
+    margin-bottom: 0.3rem;
+  }
+  
+  .card-title {
+    font-size: 1.1rem;
+    margin-bottom: 0;
+    line-height: 1.4;
+  }
+  
+  .schedule-table th {
+    font-size: 0.75rem;
+    padding: 0.6rem 0.4rem;
+  }
+  
   .schedule-table td {
-    padding: 0.8rem 0.5rem;
-    font-size: 0.85rem;
+    padding: 0;
+  }
+  
+  /* 各カラムの最小幅を少し小さく */
+  .schedule-row td:nth-child(1) {
+    min-width: 90px;
+  }
+  
+  .schedule-row td:nth-child(2) {
+    min-width: 100px;
+  }
+  
+  .schedule-row td:nth-child(3) {
+    min-width: 120px;
+  }
+  
+  .schedule-row td:nth-child(4) {
+    min-width: 180px;
+  }
+  
+  /* スマホ版のスケジュール要素のフォントサイズ調整 */
+  .schedule-detail > div {
+    padding: 0.5rem 0.6rem;
+    font-size: 0.75rem;
+    line-height: 1.4;
+  }
+  
+  /* 横スクロールヒントのサイズ調整 */
+  .schedule-table-wrapper::after {
+    font-size: 0.7rem;
+    padding: 0.4rem 0;
   }
   
   .drink-notice {
@@ -2473,9 +2923,9 @@ a {
   *,
   *::before,
   *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms;
+    animation-iteration-count: 1;
+    transition-duration: 0.01ms;
   }
 }
 
@@ -2542,9 +2992,61 @@ input:focus {
    フロアマップセクション
    ============================================ */
 
+/* フロアマップタブ */
+.floormap-tabs {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  border-bottom: 2px solid #e0e0e0;
+}
+
+.floormap-tab-btn {
+  flex: 1;
+  padding: 1rem 1.5rem;
+  background: transparent;
+  border: none;
+  border-bottom: 3px solid transparent;
+  color: var(--color-text-light);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  bottom: -2px;
+  font-family: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.floormap-tab-btn .floor-icon {
+  font-size: 1.2rem;
+}
+
+.floormap-tab-btn:hover {
+  color: var(--color-primary);
+  background: rgba(168, 213, 226, 0.1);
+}
+
+.floormap-tab-btn.active {
+  color: var(--color-primary);
+  border-bottom-color: var(--color-primary);
+  background: transparent;
+}
+
+.floormap-tab-btn:focus {
+  outline: none;
+}
+
+.floormap-tab-btn:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
 .floormap-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: 1fr;
   gap: 2rem;
   margin-top: 2rem;
 }
@@ -2557,9 +3059,21 @@ input:focus {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
+/* PC版ではデフォルト非表示 */
+@media (min-width: 769px) {
+  .floormap-item {
+    display: none;
+  }
+  
+  .floormap-item.active {
+    display: block;
+    animation: fadeIn 0.4s ease;
+  }
+}
+
 .floormap-item:hover {
-  transform: translateY(-5px);
-  box-shadow: var(--shadow-hover);
+  transform: none;
+  box-shadow: var(--shadow-soft);
 }
 
 .floormap-header {
@@ -2567,6 +3081,7 @@ input:focus {
   padding: 1rem;
   text-align: center;
   position: relative;
+  pointer-events: none;
 }
 
 .floormap-title {
@@ -2584,6 +3099,24 @@ input:focus {
   display: block;
 }
 
+/* PC版：2カラムレイアウト（凡例左、画像右） */
+@media (min-width: 769px) {
+  .floormap-content {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 0;
+  }
+  
+  .floormap-image img {
+    width: 85%;
+    max-width: 600px;
+  }
+}
+
+.floormap-legend {
+  padding: 1.5rem;
+}
+
 .floormap-image {
   padding: 1.5rem;
   background: #f9f9f9;
@@ -2596,10 +3129,6 @@ input:focus {
   width: 100%;
   height: auto;
   border-radius: 8px;
-}
-
-.floormap-legend {
-  padding: 1.5rem;
 }
 
 .floormap-legend ul {
@@ -2643,16 +3172,21 @@ input:focus {
 }
 
 @media (max-width: 768px) {
+  /* SP版ではタブボタンを非表示 */
+  .floormap-tabs {
+    display: none;
+  }
+  
   .floormap-grid {
     gap: 1.5rem;
   }
   
   .floormap-item {
-    transform: none !important;
+    transform: none;
   }
   
   .floormap-item:hover {
-    transform: none !important;
+    transform: none;
   }
   
   .floormap-header {
@@ -2661,6 +3195,7 @@ input:focus {
     justify-content: center;
     align-items: center;
     gap: 1rem;
+    pointer-events: auto;
   }
   
   .floormap-toggle-icon {
@@ -2695,6 +3230,26 @@ input:focus {
   .floormap-legend li {
     font-size: 0.9rem;
     padding: 0.4rem 0;
+  }
+}
+
+/* 超小型画面対応（360px以下） */
+@media (max-width: 360px) {
+  .footer-character {
+    width: 55px;
+  }
+  
+  .footer-character-img {
+    width: 45px;
+  }
+  
+  .footer-content {
+    gap: 0;
+    padding: 0 0.3rem;
+  }
+  
+  .footer-logo-wrapper {
+    gap: 0.5rem;
   }
 }
 

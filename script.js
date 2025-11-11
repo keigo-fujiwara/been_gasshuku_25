@@ -20,6 +20,9 @@ document.addEventListener('DOMContentLoaded', function() {
   // プログラムカードのトグル機能を初期化（SP版のみ）
   initProgramCardToggle();
   
+  // 学習プログラムのタブ機能を初期化（SP版のみ）
+  initProgramTabs();
+  
   // スケジュールのトグル機能を初期化（SP版のみ）
   initScheduleToggle();
   
@@ -35,6 +38,9 @@ document.addEventListener('DOMContentLoaded', function() {
   // フロアマップのトグル機能を初期化（SP版のみ）
   initFloormapToggle();
   
+  // フロアマップのタブ機能を初期化（PC版）
+  initFloormapTabs();
+  
   // スクロールスパイ機能を初期化
   initScrollSpy();
   
@@ -43,6 +49,15 @@ document.addEventListener('DOMContentLoaded', function() {
   
   // アクセスタブの切り替え機能を初期化
   initAccessTabs();
+  
+  // ご案内セクションのトグル機能を初期化（SP版のみ）
+  initGuideToggle();
+  
+  // LINEアカウントセクションのトグル機能を初期化（SP版のみ）
+  initLineToggle();
+  
+  // フッターのキャラクター画像をSP版でロゴの隣に配置
+  initFooterCharacters();
   
 });
 
@@ -220,80 +235,11 @@ function initProgramCardToggle() {
 
 /**
  * スケジュールのトグル機能（SP版のみ）
- * 日付をタップして詳細の表示/非表示を切り替え
- * SP版では時間と内容を交互に表示
+ * SP版でもPC版と同じデザインを保持
  */
 function initScheduleToggle() {
-  const scheduleRows = document.querySelectorAll('[data-schedule-row]');
-  
-  if (scheduleRows.length === 0) {
-    // スケジュール行が存在しない場合は処理をスキップ
-    return;
-  }
-  
-  scheduleRows.forEach(row => {
-    const dayLabel = row.querySelector('.day-label');
-    
-    if (!dayLabel) {
-      return;
-    }
-    
-    // SP版用に時間と内容を交互に配置
-    restructureScheduleForMobile(row);
-    
-    // 日付ラベルをクリックした時の処理
-    dayLabel.addEventListener('click', function() {
-      // SP版（768px以下）の場合のみトグル機能を有効化
-      if (window.innerWidth <= 768) {
-        row.classList.toggle('active');
-      }
-    });
-  });
-  
-  // ウィンドウリサイズ時にPC版に戻った場合は、全ての行を開いた状態にする
-  window.addEventListener('resize', function() {
-    if (window.innerWidth > 768) {
-      scheduleRows.forEach(row => {
-        row.classList.remove('active');
-      });
-    }
-  });
-}
-
-/**
- * スケジュールをSP版用に再構築
- * 時間と内容を交互に表示する形式に変更
- */
-function restructureScheduleForMobile(row) {
-  const timeCell = row.querySelector('.schedule-detail:nth-child(2)');
-  const activityCell = row.querySelector('.schedule-detail:nth-child(3)');
-  
-  if (!timeCell || !activityCell) {
-    return;
-  }
-  
-  const timeSlots = Array.from(timeCell.querySelectorAll('.time-slot'));
-  const activities = Array.from(activityCell.querySelectorAll('.activity'));
-  
-  // SP版用のコンテナを作成
-  const mobileContainer = document.createElement('div');
-  mobileContainer.className = 'schedule-mobile-container';
-  
-  // 時間と内容を交互に追加
-  timeSlots.forEach((timeSlot, index) => {
-    if (activities[index]) {
-      const pair = document.createElement('div');
-      pair.className = 'schedule-pair';
-      
-      pair.appendChild(timeSlot.cloneNode(true));
-      pair.appendChild(activities[index].cloneNode(true));
-      
-      mobileContainer.appendChild(pair);
-    }
-  });
-  
-  // 元のセルにモバイルコンテナを追加
-  timeCell.appendChild(mobileContainer);
+  // SP版では特別な処理は不要（CSSで制御）
+  return;
 }
 
 /**
@@ -461,6 +407,70 @@ function initFloormapToggle() {
 }
 
 /**
+ * フロアマップのタブ機能（PC版）
+ * タブをクリックして各階を切り替え（アクセスと同じ形式）
+ */
+function initFloormapTabs() {
+  const tabButtons = document.querySelectorAll('.floormap-tab-btn');
+  const floormapItems = document.querySelectorAll('[data-floor-content]');
+  
+  if (tabButtons.length === 0 || floormapItems.length === 0) {
+    return;
+  }
+  
+  // 初期状態でPC版の場合、1Fを表示
+  if (window.innerWidth > 768) {
+    const firstTab = document.querySelector('.floormap-tab-btn[data-floor="floor-1f"]');
+    const firstContent = document.querySelector('[data-floor-content="floor-1f"]');
+    if (firstTab && firstContent) {
+      firstTab.classList.add('active');
+      firstContent.classList.add('active');
+    }
+  }
+  
+  // タブボタンをクリックした時の処理
+  tabButtons.forEach(button => {
+    button.addEventListener('click', function() {
+      // PC版（768px超）の場合のみタブ機能を有効化
+      if (window.innerWidth > 768) {
+        const floorId = this.getAttribute('data-floor');
+        const targetContent = document.querySelector(`[data-floor-content="${floorId}"]`);
+        
+        // すべてのタブとコンテンツから active クラスを削除
+        tabButtons.forEach(btn => btn.classList.remove('active'));
+        floormapItems.forEach(item => item.classList.remove('active'));
+        
+        // クリックされたタブと対応するコンテンツに active クラスを追加
+        this.classList.add('active');
+        if (targetContent) {
+          targetContent.classList.add('active');
+        }
+      }
+    });
+  });
+  
+  // ウィンドウリサイズ時の処理
+  window.addEventListener('resize', function() {
+    if (window.innerWidth <= 768) {
+      // SP版に戻った場合は、タブのactiveクラスをリセット
+      tabButtons.forEach(btn => btn.classList.remove('active'));
+      floormapItems.forEach(item => item.classList.remove('active'));
+    } else {
+      // PC版に戻った場合は、1Fをデフォルト表示
+      const hasActive = Array.from(floormapItems).some(item => item.classList.contains('active'));
+      if (!hasActive) {
+        const firstTab = document.querySelector('.floormap-tab-btn[data-floor="floor-1f"]');
+        const firstContent = document.querySelector('[data-floor-content="floor-1f"]');
+        if (firstTab && firstContent) {
+          firstTab.classList.add('active');
+          firstContent.classList.add('active');
+        }
+      }
+    }
+  });
+}
+
+/**
  * スクロールスパイ機能
  * ページをスクロールした際に、現在表示されているセクションに対応するメニューをハイライト
  */
@@ -567,27 +577,33 @@ function initScheduleTabs() {
   
   if (tabButtons.length === 0 || tabContents.length === 0) return;
   
-  // 初期状態でアクティブなタブの絵文字を🍁に変更
-  const initialActiveTab = document.querySelector('.schedule-tabs .tab-btn.active');
-  if (initialActiveTab) {
-    updateScheduleTabEmoji(initialActiveTab, true);
-  }
-  
   tabButtons.forEach(button => {
     button.addEventListener('click', function() {
       const targetTab = this.getAttribute('data-tab');
+      const targetContent = document.getElementById(targetTab);
       
-      // すべてのタブボタンの絵文字を📅に戻す
-      tabButtons.forEach(btn => {
-        btn.classList.remove('active');
-        updateScheduleTabEmoji(btn, false);
-      });
-      tabContents.forEach(content => content.classList.remove('active'));
-      
-      // クリックされたタブボタンとそのコンテンツにactiveクラスを追加
-      this.classList.add('active');
-      updateScheduleTabEmoji(this, true);
-      document.getElementById(targetTab).classList.add('active');
+      // 同じタブを押した場合は閉じる（トグル機能）
+      if (this.classList.contains('active')) {
+        this.classList.remove('active');
+        updateScheduleTabEmoji(this, false);
+        if (targetContent) {
+          targetContent.classList.remove('active');
+        }
+      } else {
+        // すべてのタブボタンの絵文字を📅に戻す
+        tabButtons.forEach(btn => {
+          btn.classList.remove('active');
+          updateScheduleTabEmoji(btn, false);
+        });
+        tabContents.forEach(content => content.classList.remove('active'));
+        
+        // クリックされたタブボタンとそのコンテンツにactiveクラスを追加
+        this.classList.add('active');
+        updateScheduleTabEmoji(this, true);
+        if (targetContent) {
+          targetContent.classList.add('active');
+        }
+      }
     });
   });
 }
@@ -630,6 +646,167 @@ function initAccessTabs() {
       }
     });
   });
+}
+
+/**
+ * ご案内セクションのトグル機能（SP版のみ）
+ * ヘッダーをタップして詳細の表示/非表示を切り替え
+ */
+function initGuideToggle() {
+  const guideWrapper = document.querySelector('[data-guide-toggle]');
+  
+  if (!guideWrapper) {
+    // ご案内セクションが存在しない場合は処理をスキップ
+    return;
+  }
+  
+  const header = guideWrapper.querySelector('.guide-toggle-header');
+  
+  if (!header) {
+    return;
+  }
+  
+  // ヘッダーをクリックした時の処理
+  header.addEventListener('click', function() {
+    // SP版（768px以下）の場合のみトグル機能を有効化
+    if (window.innerWidth <= 768) {
+      guideWrapper.classList.toggle('active');
+    }
+  });
+  
+  // ウィンドウリサイズ時にPC版に戻った場合は、開いた状態にする
+  window.addEventListener('resize', function() {
+    if (window.innerWidth > 768) {
+      guideWrapper.classList.remove('active');
+    }
+  });
+}
+
+/**
+ * LINEアカウントセクションのトグル機能（SP版のみ）
+ * ヘッダーをタップして詳細の表示/非表示を切り替え
+ */
+function initLineToggle() {
+  const lineBox = document.querySelector('[data-line-toggle]');
+  
+  if (!lineBox) {
+    // LINEアカウントセクションが存在しない場合は処理をスキップ
+    return;
+  }
+  
+  const header = lineBox.querySelector('.line-toggle-header');
+  
+  if (!header) {
+    return;
+  }
+  
+  // ヘッダーをクリックした時の処理
+  header.addEventListener('click', function() {
+    // SP版（768px以下）の場合のみトグル機能を有効化
+    if (window.innerWidth <= 768) {
+      lineBox.classList.toggle('active');
+    }
+  });
+  
+  // ウィンドウリサイズ時にPC版に戻った場合は、開いた状態にする
+  window.addEventListener('resize', function() {
+    if (window.innerWidth > 768) {
+      lineBox.classList.remove('active');
+    }
+  });
+}
+
+/**
+ * 学習プログラムのタブ機能（SP版のみ）
+ * タブをクリックして各CHAPTERの表示/非表示を切り替え
+ */
+function initProgramTabs() {
+  const tabButtons = document.querySelectorAll('.program-tab-btn');
+  const tabContents = document.querySelectorAll('.program-card[data-tab-content]');
+  
+  if (tabButtons.length === 0 || tabContents.length === 0) {
+    return;
+  }
+  
+  // タブボタンをクリックした時の処理
+  tabButtons.forEach(button => {
+    button.addEventListener('click', function() {
+      // SP版（768px以下）の場合のみタブ機能を有効化
+      if (window.innerWidth <= 768) {
+        const tabNumber = this.getAttribute('data-tab');
+        const targetContent = document.querySelector(`.program-card[data-tab-content="${tabNumber}"]`);
+        
+        // 同じタブを押した場合は非表示に（トグル機能）
+        if (this.classList.contains('active')) {
+          this.classList.remove('active');
+          if (targetContent) {
+            targetContent.classList.remove('active');
+          }
+        } else {
+          // すべてのタブとコンテンツから active クラスを削除
+          tabButtons.forEach(btn => btn.classList.remove('active'));
+          tabContents.forEach(content => content.classList.remove('active'));
+          
+          // クリックされたタブと対応するコンテンツに active クラスを追加
+          this.classList.add('active');
+          if (targetContent) {
+            targetContent.classList.add('active');
+          }
+        }
+      }
+    });
+  });
+  
+  // ウィンドウリサイズ時にPC版に戻った場合は、すべてのカードを表示
+  window.addEventListener('resize', function() {
+    if (window.innerWidth > 768) {
+      tabButtons.forEach(btn => btn.classList.remove('active'));
+      tabContents.forEach(content => content.classList.remove('active'));
+    }
+  });
+}
+
+/**
+ * フッターのキャラクター画像をSP版でロゴの隣に配置
+ */
+function initFooterCharacters() {
+  const logoWrapper = document.querySelector('.footer-logo-wrapper');
+  const footerContent = document.querySelector('.footer-content');
+  const charLeft = document.querySelector('.footer-character-left');
+  const charRight = document.querySelector('.footer-character-right');
+  
+  if (!logoWrapper || !footerContent || !charLeft || !charRight) {
+    return;
+  }
+  
+  // 元の位置を記憶
+  const originalParent = footerContent;
+  
+  function arrangeCharacters() {
+    if (window.innerWidth <= 768) {
+      // SP版：キャラクター画像をロゴの隣に移動
+      if (charLeft.parentElement !== logoWrapper) {
+        logoWrapper.insertBefore(charLeft, logoWrapper.firstChild);
+      }
+      if (charRight.parentElement !== logoWrapper) {
+        logoWrapper.appendChild(charRight);
+      }
+    } else {
+      // PC版：キャラクター画像を元の位置に戻す
+      if (charLeft.parentElement !== originalParent) {
+        originalParent.insertBefore(charLeft, originalParent.firstChild);
+      }
+      if (charRight.parentElement !== originalParent) {
+        originalParent.appendChild(charRight);
+      }
+    }
+  }
+  
+  // 初期配置
+  arrangeCharacters();
+  
+  // ウィンドウリサイズ時に再配置
+  window.addEventListener('resize', arrangeCharacters);
 }
 
 /**
