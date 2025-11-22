@@ -56,6 +56,9 @@ document.addEventListener('DOMContentLoaded', function() {
   // LINEアカウントセクションのトグル機能を初期化（SP版のみ）
   initLineToggle();
   
+  // ブログ更新セクションのトグル機能を初期化（SP版のみ）
+  initBlogUpdateToggle();
+  
   // フッターのキャラクター画像をSP版でロゴの隣に配置
   initFooterCharacters();
   
@@ -700,18 +703,42 @@ function initLineToggle() {
     return;
   }
   
+  // ヘッダーをクリックした時の処理（PC版・SP版両方で有効）
+  header.addEventListener('click', function() {
+    lineBox.classList.toggle('active');
+  });
+}
+
+/**
+ * ブログ更新セクションのトグル機能（SP版のみ）
+ * ヘッダーをクリックしてコンテンツの表示/非表示を切り替え
+ */
+function initBlogUpdateToggle() {
+  const blogUpdateBox = document.querySelector('[data-blog-update-toggle]');
+  
+  if (!blogUpdateBox) {
+    // ブログ更新セクションが存在しない場合は処理をスキップ
+    return;
+  }
+  
+  const header = blogUpdateBox.querySelector('.blog-update-header');
+  
+  if (!header) {
+    return;
+  }
+  
   // ヘッダーをクリックした時の処理
   header.addEventListener('click', function() {
     // SP版（768px以下）の場合のみトグル機能を有効化
     if (window.innerWidth <= 768) {
-      lineBox.classList.toggle('active');
+      blogUpdateBox.classList.toggle('active');
     }
   });
   
   // ウィンドウリサイズ時にPC版に戻った場合は、開いた状態にする
   window.addEventListener('resize', function() {
     if (window.innerWidth > 768) {
-      lineBox.classList.remove('active');
+      blogUpdateBox.classList.remove('active');
     }
   });
 }

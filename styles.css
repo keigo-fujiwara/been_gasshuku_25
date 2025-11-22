@@ -567,14 +567,54 @@ a {
   background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%);
   border: 3px solid #06C755;
   border-radius: var(--border-radius);
-  padding: 2rem;
+  padding: 0;
   margin-top: 2rem;
   box-shadow: 0 6px 25px rgba(6, 199, 85, 0.15);
+  overflow: hidden;
 }
 
-/* PC版では開閉ヘッダーを非表示 */
+/* 開閉ヘッダー */
 .line-toggle-header {
-  display: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 2rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.line-toggle-header:hover {
+  background-color: rgba(6, 199, 85, 0.1);
+}
+
+.line-toggle-title {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #06C755;
+}
+
+.line-toggle-icon {
+  font-size: 1.2rem;
+  color: #06C755;
+  transition: transform 0.3s ease;
+}
+
+.line-info-box.active .line-toggle-icon {
+  transform: rotate(180deg);
+}
+
+.line-info-content-wrapper {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.5s ease, opacity 0.3s ease, padding 0.3s ease;
+  padding: 0 2rem;
+}
+
+.line-info-box.active .line-info-content-wrapper {
+  max-height: 1500px;
+  opacity: 1;
+  padding: 0 2rem 2rem 2rem;
 }
 
 .line-info-title {
@@ -681,6 +721,149 @@ a {
   font-size: 1.05rem;
   color: var(--color-text);
   line-height: 1.8;
+}
+
+/* ============================================
+   ブログ更新セクション
+   ============================================ */
+
+.blog-update-box {
+  background: linear-gradient(135deg, #FFF3E0 0%, #FFE0B2 100%);
+  border: 3px solid #FF9800;
+  border-radius: var(--border-radius);
+  padding: 0;
+  margin-top: 2rem;
+  box-shadow: 0 6px 25px rgba(255, 152, 0, 0.15);
+  overflow: hidden;
+}
+
+.blog-update-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 2rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.blog-update-header:hover {
+  background-color: rgba(255, 152, 0, 0.1);
+}
+
+.blog-update-title {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #FF9800;
+}
+
+.blog-update-icon {
+  font-size: 1.2rem;
+  color: #FF9800;
+  transition: transform 0.3s ease;
+}
+
+.blog-update-box.active .blog-update-icon {
+  transform: rotate(180deg);
+}
+
+.blog-update-content {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease, opacity 0.3s ease, padding 0.3s ease;
+  padding: 0 2rem;
+}
+
+.blog-update-box.active .blog-update-content {
+  max-height: 1000px;
+  opacity: 1;
+  padding: 0 2rem 2rem 2rem;
+}
+
+.blog-update-text {
+  font-size: 1.1rem;
+  color: var(--color-text);
+  line-height: 1.8;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.blog-update-link {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.blog-link-btn {
+  display: inline-block;
+  padding: 0.8rem 2rem;
+  background-color: #FF9800;
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(255, 152, 0, 0.3);
+}
+
+.blog-link-btn:hover {
+  background-color: #F57C00;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(255, 152, 0, 0.4);
+}
+
+.blog-link-btn:active {
+  transform: translateY(0);
+}
+
+.blog-update-notice {
+  background-color: rgba(255, 152, 0, 0.1);
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.blog-notice-item {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-bottom: 0.8rem;
+  font-size: 1rem;
+  color: var(--color-text);
+}
+
+.blog-notice-item:last-child {
+  margin-bottom: 0;
+}
+
+.blog-notice-icon {
+  font-size: 1.3rem;
+  flex-shrink: 0;
+}
+
+.blog-notice-item strong {
+  color: #E65100;
+}
+
+/* PC版では開閉機能を無効化（常に表示） */
+@media (min-width: 769px) {
+  .blog-update-header {
+    cursor: default;
+  }
+  
+  .blog-update-header:hover {
+    background-color: transparent;
+  }
+  
+  .blog-update-icon {
+    display: none;
+  }
+  
+  .blog-update-content {
+    max-height: none;
+    opacity: 1;
+    padding: 0 2rem 2rem 2rem;
+  }
 }
 
 /* ============================================
@@ -2163,21 +2346,20 @@ a {
     overflow: hidden;
   }
   
-  /* LINEボックスの開閉ヘッダー（SP版） */
+  /* LINEボックスの開閉ヘッダー（SP版用のスタイル調整） */
   .line-toggle-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     padding: 1.2rem;
     background: linear-gradient(135deg, #06C755 0%, #05a846 100%);
     color: var(--color-white);
-    cursor: pointer;
-    user-select: none;
   }
   
   .line-toggle-title {
     font-size: 1.1rem;
-    font-weight: bold;
+    color: var(--color-white);
+  }
+  
+  .line-toggle-icon {
+    color: var(--color-white);
   }
   
   .line-toggle-icon {
