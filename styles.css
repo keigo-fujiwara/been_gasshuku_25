@@ -1852,6 +1852,86 @@ a {
   font-weight: bold;
 }
 
+/* 追伸セクション */
+.blog-postscript {
+  position: relative;
+}
+
+.blog-postscript h2 {
+  color: var(--color-primary);
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+}
+
+.postscript-content {
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+  margin-bottom: 1.5rem;
+}
+
+.postscript-text {
+  flex: 1;
+}
+
+.postscript-text p {
+  line-height: 1.9;
+  margin-bottom: 1rem;
+}
+
+.postscript-text-continue {
+  margin-bottom: 1.5rem;
+}
+
+.postscript-text-continue p {
+  line-height: 1.9;
+  margin-bottom: 1rem;
+}
+
+.postscript-signature {
+  text-align: right;
+  margin-top: 2rem;
+  margin-bottom: 0;
+  font-weight: bold;
+  color: var(--color-text);
+  font-family: 'Brush Script MT', 'Brush Script', 'Lucida Handwriting', 'Comic Sans MS', cursive;
+  font-size: 1.8rem;
+  font-style: italic;
+  letter-spacing: 0.15em;
+  transform: rotate(-1deg);
+  display: block;
+  margin-left: auto;
+  margin-right: 0;
+}
+
+.postscript-image {
+  flex-shrink: 0;
+}
+
+.postscript-image.pc-only {
+  width: 300px;
+  display: block;
+}
+
+.postscript-image.sp-only {
+  display: none;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.postscript-image .blog-image {
+  width: 100%;
+}
+
+.postscript-image .blog-image img,
+.postscript-image .blog-image-placeholder {
+  width: 100%;
+  height: auto;
+  min-height: 200px;
+  max-height: 400px;
+  object-fit: cover;
+}
+
 .blog-navigation {
   text-align: center;
   margin-top: 3rem;
@@ -2764,6 +2844,28 @@ a {
   
   .blog-images {
     grid-template-columns: 1fr;
+  }
+  
+  /* 追伸セクション（SP版） */
+  .postscript-content {
+    flex-direction: column;
+  }
+  
+  .postscript-image.pc-only {
+    display: none;
+  }
+  
+  .postscript-image.sp-only {
+    display: block;
+    order: 2;
+  }
+  
+  .postscript-text-continue {
+    order: 3;
+  }
+  
+  .postscript-signature {
+    order: 4;
   }
   
   .footer-content {
